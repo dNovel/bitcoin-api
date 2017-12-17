@@ -7,10 +7,12 @@ using BitcoinInfo.API;
 
 namespace BitcoinInfo.Controllers
 {
-    [Route("api/[controller]")]
-    public class BitcoinCourseController : Controller
+    [ApiVersion("0.1")]
+    [Route("api/v{version:apiVersion}/[controller]")]
+    public class BCPriceController : Controller
     {
         // GET api/bitcoincourse
+        [MapToApiVersion("0.1")]
         [HttpGet(Name = "GetCurrentCourse")]
         public IActionResult Get()
         {
@@ -22,7 +24,7 @@ namespace BitcoinInfo.Controllers
 
         // GET api/bitcoincourse/123456
         [HttpGet("{id}", Name = "GetCourseAtTime")]
-        public ActionResult Get(int time)
+        public IActionResult Get(int time)
         {
             BitcoinCourse btcCourse = new BitcoinCourse();
             var res = btcCourse.GetBtcCourseAtTime(time);
